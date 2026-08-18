@@ -24,15 +24,16 @@ Then open `http://localhost:4200`.
 - **Component split**:
   - `DashboardComponent` — owns state (all products, selected category, search term), does filtering, renders the layout.
   - `ProductCardComponent` — a "dumb"/presentational component. Takes a `product` as `@Input`, emits an `action` event on CTA click. Reused across all 4 product types since they share the same shape (`name`, `category`, `status`, `metrics[]`, CTA).
+- Product Details Modal — displayed within DashboardComponent when the user selects "View Details". It keeps the interaction on the same screen and can be closed using the close button or Escape key.
 - **Unified shape**: Every product type (savings, credit card, loan, wealth) is normalized into one `BankingProduct` interface with a generic `metrics: {label, value}[]` array. This is what lets one card component render all categories without per-type branching — savings shows interest rate/balance, credit card shows limit/due date, etc., but the component itself doesn't know the difference.
-- **Filtering**: category tabs + a live search box are combined client-side via a `filteredProducts` getter — simple and sufficient for a hard-coded/small dataset. For a real paginated backend this would move server-side.
+- **Filtering**: category tabs + a live search box are combined client-side via a filteredProducts getter. Search matches product name, category, and status.
 - **Status styling**: `status` drives a CSS class (`status--active`, `status--overdue`, etc.) so risk states (e.g. an overdue card) are visually distinct at a glance.
 - **Loading/empty states**: handled explicitly (`isLoading`, empty-filter message) since the service returns an Observable, not synchronous data.
 
 ## What I'd add with more time
 
-- Route to a real product-details page per category instead of an `alert()` stub
+- Route to a dedicated product-details page if the application grows beyond the single-screen scope
 - Unit tests for `DashboardComponent` filtering logic and `ProductCardComponent` rendering
 - Debounce on the search input
 - Real HTTP client + loading/error handling for network failures
-- Accessibility pass (ARIA roles for tabs, focus management)
+- Further accessibility improvements such as semantic tab roles, focus trapping within the modal, and enhanced keyboard navigation
