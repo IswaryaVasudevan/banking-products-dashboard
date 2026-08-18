@@ -1,0 +1,19 @@
+<article class="card">
+  <header class="card__header">
+    <span class="card__category">{{ product.category }}</span>
+    <span [class]="statusClass">{{ product.status }}</span>
+  </header>
+
+  <h3 class="card__name">{{ product.name }}</h3>
+
+  <dl class="card__metrics">
+    <div *ngFor="let metric of product.metrics" class="card__metric">
+      <dt>{{ metric.label }}</dt>
+      <dd>{{ metric.value }}</dd>
+    </div>
+  </dl>
+
+  <button class="card__cta" type="button" (click)="onAction()">
+    {{ product.ctaLabel }}
+  </button>
+</article>

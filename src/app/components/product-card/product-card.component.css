@@ -1,0 +1,108 @@
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.08);
+  border: 1px solid #e6e9f0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.1);
+  transform: translateY(-2px);
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card__category {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #5b6478;
+}
+
+.status {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.status--active {
+  background: #e5f7ec;
+  color: #1a7f4e;
+}
+
+.status--pending {
+  background: #fff4e0;
+  color: #b06a00;
+}
+
+.status--overdue {
+  background: #fdecec;
+  color: #c22a2a;
+}
+
+.status--closed {
+  background: #eceff3;
+  color: #5b6478;
+}
+
+.card__name {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1f36;
+}
+
+.card__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0;
+}
+
+.card__metric dt {
+  font-size: 11px;
+  color: #8a90a2;
+  margin-bottom: 2px;
+}
+
+.card__metric dd {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1f36;
+}
+
+.card__cta {
+  margin-top: auto;
+  background: #1a56db;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.card__cta:hover {
+  background: #1544ad;
+}
+
+.card__cta:focus-visible,
+.tabs__item:focus-visible {
+  outline: 3px solid rgba(26, 86, 219, 0.25);
+  outline-offset: 2px;
+}
+

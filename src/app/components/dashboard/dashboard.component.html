@@ -1,0 +1,149 @@
+<div class="dashboard">
+
+  <!-- Header -->
+  <header class="dashboard__header">
+    <h1>Banking Products Dashboard</h1>
+    <p class="dashboard__subtitle">
+      A unified view of your accounts, cards, loans and investments.
+    </p>
+  </header>
+
+  <!-- Filters -->
+  <div class="dashboard__controls">
+
+    <div class="tabs">
+      <button
+        *ngFor="let category of categories"
+        type="button"
+        class="tabs__item"
+        [class.tabs__item--active]="selectedCategory === category"
+        (click)="selectCategory(category)"
+      >
+        {{ category }}
+      </button>
+    </div>
+
+    <input
+      class="search"
+      type="text"
+      placeholder="Search products..."
+      [(ngModel)]="searchTerm"
+      aria-label="Search products"
+    />
+
+  </div>
+
+  <!-- Loading -->
+  <div
+    *ngIf="isLoading"
+    class="state state--loading"
+  >
+    Loading products…
+  </div>
+
+  <!-- Empty state -->
+  <div
+    *ngIf="!isLoading && filteredProducts.length === 0"
+    class="state state--empty"
+  >
+    <h3>No products found</h3>
+    <p>Try changing your search term or selecting a different category.</p>
+  </div>
+
+  <!-- Product Grid -->
+  <div
+    *ngIf="!isLoading && filteredProducts.length > 0"
+    class="grid"
+  >
+    <app-product-card
+      *ngFor="let product of filteredProducts; trackBy: trackByProductId"
+      [product]="product"
+      (action)="onProductAction($event)"
+    >
+    </app-product-card>
+  </div>
+
+</div>
+
+
+<!-- Product Details Modal -->
+<div
+  *ngIf="selectedProduct"
+  class="modal-backdrop"
+  (click)="closeDetails()"
+>
+
+  <div
+    class="modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="product-details-title"
+    (click)="$event.stopPropagation()"
+  >
+
+    <!-- Modal Header -->
+    <div class="modal__header">
+
+      <div>
+        <span class="modal__category">
+          {{ selectedProduct.category }}
+        </span>
+
+        <h2 id="product-details-title">
+          {{ selectedProduct.name }}
+        </h2>
+      </div>
+
+    </div>
+
+
+    <!-- Status -->
+    <div class="modal__status-row">
+
+      <span
+        [class]="
+          'status status--' +
+          selectedProduct.status.toLowerCase()
+        "
+      >
+        {{ selectedProduct.status }}
+      </span>
+
+    </div>
+
+
+    <!-- Product Metrics -->
+    <div class="modal__metrics">
+
+      <div
+        *ngFor="let metric of selectedProduct.metrics"
+        class="modal__metric"
+      >
+        <span class="modal__metric-label">
+          {{ metric.label }}
+        </span>
+
+        <strong class="modal__metric-value">
+          {{ metric.value }}
+        </strong>
+      </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <div class="modal__footer">
+
+      <button
+        type="button"
+        class="modal__button"
+        (click)="closeDetails()"
+      >
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
